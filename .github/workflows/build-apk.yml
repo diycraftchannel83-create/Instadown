@@ -19,6 +19,8 @@ jobs:
           cache: true
       - name: Complete Android project files
         run: flutter create --platforms=android --project-name=instadown .
+      - name: Restore native MediaStore bridge
+        run: git checkout -- android/app/src/main/kotlin/com/example/instadown/MainActivity.kt
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter build apk --release
