@@ -1,1 +1,26 @@
-import 'package:flutter/material.dart';class SettingsPage extends StatelessWidget{const SettingsPage({super.key});@override Widget build(BuildContext context)=>Scaffold(appBar:AppBar(title:const Text('Pengaturan')),body:const ListView(children:[ListTile(leading:Icon(Icons.folder_rounded),title:Text('Lokasi penyimpanan'),subtitle:Text('Galeri / Movies / InstaDown')),ListTile(leading:Icon(Icons.info_outline_rounded),title:Text('Tentang InstaDown'),subtitle:Text('Downloader media Instagram publik tanpa login.'))]);}
+import 'package:flutter/material.dart';
+
+class SettingsPage extends StatelessWidget {
+  const SettingsPage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text('Pengaturan')),
+      body: ListView(
+        children: const [
+          ListTile(
+            leading: Icon(Icons.folder_rounded),
+            title: Text('Lokasi penyimpanan'),
+            subtitle: Text('Galeri / Movies / InstaDown'),
+          ),
+          ListTile(
+            leading: Icon(Icons.info_outline_rounded),
+            title: Text('Tentang InstaDown'),
+            subtitle: Text('Downloader media Instagram publik tanpa login.'),
+          ),
+        ],
+      ),
+    );
+  }
+}
