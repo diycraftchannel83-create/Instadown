@@ -146,7 +146,7 @@ class InstagramResolver {
           throw Exception('HTTP ${response.statusCode}');
         }
       } on Exception {
-        if (endpoint == const Uri(scheme: 'https', host: 'www.instagram.com', path: '/api/graphql')) {
+        if (endpoint.path == '/api/graphql') {
           rethrow;
         }
       }
