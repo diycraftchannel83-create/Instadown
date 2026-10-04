@@ -75,7 +75,7 @@ class InstagramResolver {
     } on TimeoutException {
       throw Exception('Koneksi ke Instagram timeout. Silakan coba lagi.');
     } on http.ClientException catch (e) {
-      throw Exception('Koneksi ke Instagram gagal: \${e.message}');
+      throw Exception('Koneksi ke Instagram gagal: ${e.message}');
     } finally {
       client.close();
     }
@@ -109,7 +109,6 @@ class InstagramResolver {
           false,
     });
 
-    Object? lastError;
     for (final endpoint in <Uri>[
       Uri.https('www.instagram.com', '/graphql/query'),
       Uri.https('www.instagram.com', '/api/graphql'),
@@ -141,20 +140,19 @@ class InstagramResolver {
               decoded['data'] is Map<String, dynamic>) {
             return decoded;
           }
-          lastError = _graphQlError(decoded);
+          final message = _graphQlError(decoded);
+          throw Exception(message);
         } else {
-          lastError = 'HTTP \${response.statusCode}';
+          throw Exception('HTTP ${response.statusCode}');
         }
-      } on Object catch (e) {
-        lastError = e;
+      } on Exception {
+        if (endpoint == const Uri(scheme: 'https', host: 'www.instagram.com', path: '/api/graphql')) {
+          rethrow;
+        }
       }
     }
 
-    throw Exception(
-      'Instagram gagal memberikan metadata media publik'
-      '\${lastError == null ? '' : ': $lastError'}. '
-      'Coba lagi beberapa saat.',
-    );
+    throw Exception('Instagram gagal memberikan metadata media publik. Coba lagi beberapa saat.');
   }
 
   Map<String, dynamic>? _firstMediaItem(Map<String, dynamic> response) {
