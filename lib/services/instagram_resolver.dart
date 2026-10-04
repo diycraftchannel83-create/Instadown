@@ -122,13 +122,13 @@ class InstagramResolver {
     }
 
     if (lastError is SocketException) {
-      throw lastError!;
+      throw lastError;
     }
     if (lastError is TimeoutException) {
-      throw lastError!;
+      throw lastError;
     }
     if (lastError is http.ClientException) {
-      throw lastError!;
+      throw lastError;
     }
     throw Exception('Gagal terhubung ke Instagram.');
   }
@@ -143,8 +143,9 @@ class InstagramResolver {
 
   String? _findJsonVideo(String html) {
     final patterns = <RegExp>[
-      RegExp(r'["\\']video_url["\\']\s*:\s*["\\']([^"\\']+)'),
-      RegExp(r'["\\']video_versions["\\']\s*:\s*\[\s*\{[^}]*["\\']url["\\']\s*:\s*["\\']([^"\\']+)'),
+      RegExp(r'"video_url"\\s*:\\s*"([^"]+)"'),
+      RegExp(r'"video_versions"\\s*:\\s*\\[\\s*\\{[^}]*"url"\\s*:\\s*"([^"]+)"'),
+      RegExp(r'&quot;video_url&quot;\\s*:\\s*&quot;([^&]+)'),
     ];
     for (final pattern in patterns) {
       final value = _get(pattern, html);
