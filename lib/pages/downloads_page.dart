@@ -1,0 +1,1 @@
+import 'package:flutter/material.dart';class DownloadsPage extends StatelessWidget{const DownloadsPage({super.key});@override Widget build(BuildContext context)=>Scaffold(appBar:AppBar(title:const Text('Download Manager')),body:const Center(child:Text('Tidak ada download aktif.')));}
